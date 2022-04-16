@@ -105,8 +105,15 @@ L1 : lasso Regrassion, L2 : Ridge Regrassion
 
 
 
+==========================================================================================================================================================
 
 
+batch norm
+
+만들어진 배경  ->    hidden layer에서 next hidden layer로 갈 때 발생하는 ICS를 줄이려고 만들어짐.
+		하지만 ICS는 막지 못하고 smoothing 역할만 한다고 함.
+		한 마디로 다음 계층으로 가는 connection weights를 정규화해준다고함.
+		여기서 정규화는 norm? regularization? 
 
 
 
