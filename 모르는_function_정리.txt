@@ -1,0 +1,414 @@
+isinstance 뭐임?
+> isinstance(m, nn.Conv2d)    m이 conv2d이면 True를 반환한다. 아니라면 False를 반환한다.
+
+ nn.init.kaiming_normal_ ?
+ nn.init.constant_  ?
+ nn.init.normal_   ?
+ >>> 가중치 초기 설정해주는 함수들.  ( https://supermemi.tistory.com/121 ) 가중치 설명해주는 링크
+
+
+
+torch.ne
+> 각 텐서의 요소(element)들을 element-wise로 각각 비교해 다르면 True를, 같으면 False를 반환한다. 
+- 형태 : torch.ne(비교 대상 tensor, 비교할 tensor나 value, *, out=None) → Tensor
+- torch.not_equal과 동일
+EX) 
+>>> torch.ne(torch.tensor([[2, 5], [4, 3]]), torch.tensor([[2, 8], [2, 3]]))
+# 결과 : tensor([[False, True], [True, False]])
+
+
+torch.eq
+> ne와 반대로 각 텐서의 요소(element)들을 비교해 같으면 True를, 다르면 False를 반환한다.
+- 형태 : torch.eq(비교 대상 tensor, 비교할 tensor나 value, *, out=None) → Tensor
+
+
+
+Pytorch에서 Dataloader를 사용하는 이유?
+dataloader class는 batch기반의 딥러닝 학습을 위해 mini batch를 만들어주는 역할이다.
+dataloader를 통해 dataset의 전체 데이터가 batch size로 slice된다. 
+앞서 만들었던 dataset을 input으로 넣어주면 여러 옵션(데이터 묶기, 섞기, 병렬처리)을 통해 batch를 만들어준다.
+ ******오류***************
+종종 pytorch에서 Dataloader를 사용하다가 에러가 뜬다. 아직 이유가 정확히 뭔지는 모르나 무슨 main문이 필요하다고 뜬다.
+임시 방편으로는 Dataloader를 사용할때 인자값으로 num_worker가 있다. 이거를 "0"으로 지정해주면 에러가 뜨진 않는다.
+num_worker가 무슨 param인지 알아보자   #TODO LIST
+
+
+[pytorch]
+nn.Module에는 train time과 evaluate time에 수행하는 다른 작업을 switching해줄 수 있도록하는 함수를 제공한다.
+train time과 evaluate time에 서로 다르게 동작해야 하는 것들에는 대표적으로 아래와 같은 것들이 있다.
+- Dropout layer
+- BatchNorm layer
+
+
+
+=====================================================================================================================================
+
+def train(model, train_loader, optimizer):
+
+    model.train()
+
+    for batch_idx, (data, target) in enumerate(train_loader):
+
+        data, target = data.to(DEVICE), target.to(DEVICE)
+
+        optimizer.zero_grad()
+
+        output = model(data)
+
+        loss = F.cross_entropy(output, target)
+
+        loss.backward()
+
+        optimizer.step()
+
+
+
+model.train() 
+≫ 모델을 학습 모드로 변환 / 평가 모드는 model.eval() 로 할 수 있다.
+
+ 
+data, target = data.to(DEVICE), target.to(DEVICE)
+≫  각 data 와 target 을 앞서 설정한 DEVICE(GPU 혹은 CPU) 에 보내는 것
+
+ 
+optimizer.zero_grad()
+≫ 반복 때마다 기울기를 새로 계산하므로, 이 함수로 초기화
+
+ 
+output = model(data)
+≫ data를 모델에 넣어서 가설(hypothesis)를 획득
+
+ 
+loss = F.cross_entropy(output, target)
+≫ 가설과 groud truth를 비교하여 loss 계산
+
+
+loss.backward()
+≫ loss 를 역전파 알고리즘으로 계산
+
+
+optimizer.step()
+≫  계산한 기울기를 앞서 정의한 알고리즘에 맞추어 가중치를 수정
+
+=================================================================================================================================================================
+
+
+딥러닝 공부하다 보면 weight decay라는 단어가 종종 나온다.
+모델을 학습하다 보면 overfitting이 발생할 수 있음. >> 이를 해결 방법 중 데이터를 늘리는 방법이 있다.
+하지만 그럴수 없는 상황이라면 weight decay를 이욯해서 overfitting을 예방?할 수 있다.
+
+
+weight decay : loss func이 작아지는 방양으로만 단순하게 학습을 진행하면, 
+                   특정 가중치 값들이 커지면서 결과가 안좋을 수 있다.
+                    weight decay는 학습된 모델에 복잡도를 줄위기 위해 학습 중 weight가 너무 커지지 않도록 
+                   loss func에 weight가 커질 경우에 대한 패널티 항목을 부여한다. 
+                 
+이 패널티 항목으로 많이 쓰이는 것이 L1, L2 Regularizstion이다. -> 과적합 방지
+L1 : lasso Regrassion, L2 : Ridge Regrassion 				#TODO LIST
+
+
+
+==========================================================================================================================================================
+
+
+batch norm
+
+만들어진 배경  ->    hidden layer에서 next hidden layer로 갈 때 발생하는 ICS를 줄이려고 만들어짐.
+		하지만 ICS는 막지 못하고 smoothing 역할만 한다고 함.
+		한 마디로 다음 계층으로 가는 connection weights를 정규화해준다고함.
+		여기서 정규화는 norm? regularization? 			# TODO LIST
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
