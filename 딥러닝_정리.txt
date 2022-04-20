@@ -48,7 +48,15 @@ Regularization ==>  학습된 모델을 일반화 함, 즉 아직 학습하지 �
 그러면 regularization과 normalization의 관계는 어떻게 되는가?
 > norm은 말 그대로 데이터를 정규화 한다는 의미. regularization과는 전혀 다른 의미라고 함.
 
+**************************************************************************************
+inductive bias 와 regularization 의 차이점은 무엇?
 
+weight decay 나 early stopping 과 같이 가중치의 크기는 작아야 한다는 prior knowledge 를 넣어주고 있는 경우 
+이 또한 inductive bias 인가요? 그렇다면 regularization 또한 inductive bias 를 만들어낸다고 봐야하나?
+
+이러한 정의에 의하면, regularization이라는 의미가 inductive bias를 만들어 낸다는 표현은 부적절한 표현으로 보임.
+weight decay, early stopping이 가중치의 크기가 작아야한다라는 가정에 의한것은 아니고, 해당 regularization 방법론을 적용하다보면 가중치가 작아지는것임.
+만약, 가중치를 제한한다는 의미를 inductive bias로 가정하고 모델의 학습 프로세스를 설계한다면, 새로운 시도가 될것으로 생각됨
 ==============================================================================================================================================================
 
  inductive bias  ==> 학습을 할때의 귀납적 방향성, 예) SVM : 그룹간 마진 최대화, Linear Regression : 데이터의 형태는 선형. 	
