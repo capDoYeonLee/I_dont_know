@@ -27,7 +27,7 @@ L1 : lasso Regrassion, L2 : Ridge Regrassion 				#TODO LIST
 
 
 
-batch norm
+batch normalization
 		딥러닝 모델을 설계함에 있어서, normalization 방법론을 딥러닝 학습 프로세스에 포함시키는 방법론. 
 		이 방법론을 사용하면, 편차가 큰 데이터들을 사용하더라도 local optimization에 빠지는 문제 등을 해결할 수 있으며, outlier에 대한 영향도 줄일 수 있음. 
 		따라서, batch norm을 사용하면, 몇몇 상황에서는 regularization 효과를 볼 수 있음.
@@ -45,18 +45,11 @@ Regularization ==>  학습된 모델을 일반화 함, 즉 아직 학습하지 �
 		최근 신경망 및 딥러닝 방법론이 발달하면서, early stopping, dropout 등이 나오게 되었음. 
 		또한 batch normalization기법으로도 일정 수준 regularization 효과를 볼수 있는것으로 확인됨.
 
+
 그러면 regularization과 normalization의 관계는 어떻게 되는가?
 > norm은 말 그대로 데이터를 정규화 한다는 의미. regularization과는 전혀 다른 의미라고 함.
 
-**************************************************************************************
-inductive bias 와 regularization 의 차이점은 무엇?
 
-weight decay 나 early stopping 과 같이 가중치의 크기는 작아야 한다는 prior knowledge 를 넣어주고 있는 경우 
-이 또한 inductive bias 인가요? 그렇다면 regularization 또한 inductive bias 를 만들어낸다고 봐야하나?
-
-이러한 정의에 의하면, regularization이라는 의미가 inductive bias를 만들어 낸다는 표현은 부적절한 표현으로 보임.
-weight decay, early stopping이 가중치의 크기가 작아야한다라는 가정에 의한것은 아니고, 해당 regularization 방법론을 적용하다보면 가중치가 작아지는것임.
-만약, 가중치를 제한한다는 의미를 inductive bias로 가정하고 모델의 학습 프로세스를 설계한다면, 새로운 시도가 될것으로 생각됨
 ==============================================================================================================================================================
 
  inductive bias  ==> 학습을 할때의 귀납적 방향성, 예) SVM : 그룹간 마진 최대화, Linear Regression : 데이터의 형태는 선형. 	
@@ -65,10 +58,17 @@ weight decay, early stopping이 가중치의 크기가 작아야한다라는 가
 
 
 
+inductive bias 와 regularization 의 차이점은 무엇?
+
+weight decay 나 early stopping 과 같이 가중치의 크기는 작아야 한다는 prior knowledge 를 넣어주고 있는 경우 
+이 또한 inductive bias 인가? 그렇다면 regularization 또한 inductive bias 를 만들어낸다고 봐야하나?
+
+이러한 정의에 의하면, regularization이라는 의미가 inductive bias를 만들어 낸다는 표현은 부적절한 표현으로 보임.
+weight decay, early stopping이 가중치의 크기가 작아야한다라는 가정에 의한것은 아니고, 해당 regularization 방법론을 적용하다보면 가중치가 작아지는것임.
+만약, 가중치를 제한한다는 의미를 inductive bias로 가정하고 모델의 학습 프로세스를 설계한다면, 새로운 시도가 될것으로 생각됨s
 
 
-
-
+=============================================================================================================================================================================
 
 
 
